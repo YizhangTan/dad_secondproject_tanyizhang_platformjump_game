@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import '../game/jump_game.dart';
 import 'package:flame/game.dart';
+import '../game/jump_game.dart';
+import '../components/platform.dart';
+import '../components/collectible.dart';
+import '../components/player.dart';
 
 class LevelOne extends StatelessWidget {
   const LevelOne({super.key});
@@ -18,17 +21,17 @@ class LevelOneGame extends JumpGame {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-
-    final screenCenterX = camera.visibleWorldRect.width / 2;
-    final screenCenterY = camera.visibleWorldRect.height / 2;
+    final centerX = camera.visibleWorldRect.width / 2;
+    final bottomY = camera.visibleWorldRect.height;
 
     await world.addAll([
-      Platform(Vector2(screenCenterX - 4, screenCenterY - 2), Vector2(8, 0.5)),
-      Platform(Vector2(screenCenterX, screenCenterY + 2), Vector2(6, 0.5)),
-      Platform(Vector2(screenCenterX + 4, screenCenterY + 6), Vector2(4, 0.5)),
+      Platform(Vector2(centerX - 8, bottomY - 3), Vector2(6, 0.5)),
+      Platform(Vector2(centerX + 8, bottomY - 6), Vector2(4, 0.5)),
+      Platform(Vector2(centerX, bottomY - 10), Vector2(3, 0.5)),
+      Platform(Vector2(centerX - 4, bottomY - 14), Vector2(5, 0.5)),
+      Platform(Vector2(centerX + 4, bottomY - 18), Vector2(6, 0.5)),
     ]);
-
-    await world.add(Player(Vector2(screenCenterX, screenCenterY - 5)));
-    await world.add(Collectible(Vector2(screenCenterX, screenCenterY - 8)));
+    await world.add(Player(Vector2(centerX, bottomY - 20)));
+    await world.add(Collectible(Vector2(centerX, bottomY - 22)));
   }
 }
